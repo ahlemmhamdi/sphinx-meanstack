@@ -17,6 +17,8 @@ Welcome to Sfinx's documentation!
 Indices and tables
 ==================
 * :ref:`an-introduction`
+* :ref:`configuration`
+* :ref:`concepts`
 * :ref:`application-an`
 
 
