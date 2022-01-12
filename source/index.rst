@@ -10,12 +10,15 @@ Welcome to Sfinx's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-    fp/*
-
-
+   fp/*
+   angular/*
+   express/*
 
 Indices and tables
 ==================
+* :ref:`an-introduction`
+* :ref:`application-an`
+
 
 
 * :ref:`introduction`
@@ -25,6 +28,7 @@ Indices and tables
 * :ref:`composition`
 * :ref:`pf_js_fn-pure_composition`
 * :ref:`fp_js_map`
+* 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
