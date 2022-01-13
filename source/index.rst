@@ -22,6 +22,7 @@ Indices and tables
 * :ref:`application-an`
 * :ref:`composant`
 * :ref:`directives`
+* :ref:`formes`
 
 
 

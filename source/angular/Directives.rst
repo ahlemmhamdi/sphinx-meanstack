@@ -1,8 +1,8 @@
 .. _directives:
 
-========================
-Angular: directives
-========================
+================================================
+Angular: directives - Injection de dépendances 
+================================================
 
 
 
@@ -131,3 +131,155 @@ Cette section présente les directives structurelles intégrées les plus couran
 
     <app-item-detail *ngIf="isActive" [item]="item"></app-item-detail>
 ..    
+
+Lorsque l' isActiveexpression renvoie une valeur véridique, NgIfajoute le ItemDetailComponentau DOM. 
+Lorsque l'expression est fausse, NgIfsupprime le ItemDetailComponentdu DOM et supprime le composant 
+et tous ses sous-composants.
+
+**Liste des articles avec NgFor**
+----------------------------------
+
+Utilisez la NgFordirective pour présenter une liste d'éléments.
+.. code-block::
+
+    <div *ngFor="let item of items">{{item.name}}</div>
+..
+
+Répétition d'une vue de composant
+----------------------------------
+
+Pour répéter un élément de composant, appliquez -le au sélecteur. 
+Dans l'exemple suivant, le sélecteur est .*ngFor<app-item-detail>
+
+.. code-block::
+
+    <app-item-detail *ngFor="let item of items" [item]="item"></app-item-detail>
+..
+
+Suivi des articles avec *ngFor trackBy
+--------------------------------------
+
+Ajoutez une méthode au composant qui renvoie la valeur NgForà suivre. Dans cet exemple, la valeur à suivre est celle de 
+l'élément id. Si le navigateur a déjà rendu id, Angular en garde la trace et ne réinterroge pas le serveur pour le même id.
+.. code-block::
+
+    trackByItems(index: number, item: Item): number { return item.id; }
+..
+Dans l'expression abrégée, définissez trackByla trackByItems()méthode.
+.. code-block::
+
+    <div *ngFor="let item of items; trackBy: trackByItems">
+  ({{item.id}}) {{item.name}}
+</div>
+
+Changer de boîtier avec NgSwitch
+---------------------------------
+NgSwitch est un ensemble de trois directives :
+
+- NgSwitch—une directive d'attribut qui modifie le comportement de ses directives associées.
+- NgSwitchCase—directive structurelle qui ajoute son élément au DOM lorsque sa valeur liée est égale à la valeur de commutation et supprime sa valeur liée lorsqu'elle n'est pas égale à la valeur de commutation.
+- NgSwitchDefault—directive structurelle qui ajoute son élément au DOM lorsqu'il n'y a pas de NgSwitchCase.
+
+.. code-block::
+
+   <div [ngSwitch]="currentItem.feature">
+  <app-stout-item    *ngSwitchCase="'stout'"    [item]="currentItem"></app-stout-item>
+  <app-device-item   *ngSwitchCase="'slim'"     [item]="currentItem"></app-device-item>
+  <app-lost-item     *ngSwitchCase="'vintage'"  [item]="currentItem"></app-lost-item>
+  <app-best-item     *ngSwitchCase="'bright'"   [item]="currentItem"></app-best-item>
+  <!-- . . . -->
+  <app-unknown-item  *ngSwitchDefault           [item]="currentItem"></app-unknown-item>
+  </div>
+.. 
+Dans le composant parent, définissez currentItem, pour l'utiliser dans l' expression.[ngSwitch]
+.. code-block::
+
+    currentItem!: Item;
+..
+Dans chaque composant enfant, ajoutez une item propriété d'entrée qui est liée au currentItemcomposant parent. 
+Les deux extraits de code suivants montrent le composant parent et l'un des composants enfants. 
+Les autres composants enfants sont identiques à StoutItemComponent.
+.. code-block::
+
+   export class StoutItemComponent {
+  @Input() item!: Item;
+  } 
+..
+Les directives Switch fonctionnent également avec les éléments HTML intégrés et les composants Web. Par exemple, 
+vous pouvez remplacer le boîtier du <app-best-item>commutateur par un <div>comme suit.
+.. code-block::
+
+    <div *ngSwitchCase="'bright'"> Are you as bright as {{currentItem.name}}?</div>
+..
+
+
+**Injection de dépendances dans Angular**
+_________________________________________
+
+
+Les dépendances sont des services ou des objets dont une classe a besoin pour remplir sa fonction. 
+L'injection de dépendances, ou DI, est un modèle de conception dans lequel une classe demande des 
+dépendances à des sources externes plutôt que de les créer.
+
+Création d'un service injectable
+--------------------------------
+Pour générer une nouvelle HeroServiceclasse dans le src/app/heroesdossier
+.. code-block::
+
+ng generate service heroes/hero
+..
+Cette commande crée la valeur par défaut suivante HeroService.
+.. code-block::
+    import { Injectable } from '@angular/core';
+
+ @Injectable({
+  providedIn: 'root',
+ })
+ export class HeroService {
+  constructor() { }
+ }
+..
+Ensuite, pour obtenir les données fictives du héros, ajoutez une getHeroes()méthode qui renvoie les héros de mock.heroes.ts.
+.. code-block::
+    import { Injectable } from '@angular/core';
+    import { HEROES } from './mock-heroes';
+
+    @Injectable({
+  // declares that this service should be created
+  // by the root application injector.
+  providedIn: 'root',
+   })
+   export class HeroService {
+  getHeroes() { return HEROES; }
+   }
+..
+
+Services d'injection
+--------------------
+Pour injecter une dépendance dans un composant constructor(), fournissez un argument constructeur avec le type de dépendance. 
+L'exemple suivant spécifie le HeroServicedans le HeroListComponentconstructeur. Le type de heroServiceest HeroService.
+.. code-block::
+    constructor(heroService: HeroService)
+..
+Utiliser des services dans d'autres services
+--------------------------------------------
+Lorsqu'un service dépend d'un autre service, suivez le même schéma que l'injection dans un composant. 
+Dans l'exemple suivant HeroServicedépend d'un Loggerservice pour rapporter ses activités.
+.. code-block::
+    import { Injectable } from '@angular/core';
+ import { HEROES } from './mock-heroes';
+ import { Logger } from '../logger.service';
+
+ @Injectable({
+  providedIn: 'root',
+ })
+ export class HeroService {
+
+  constructor(private logger: Logger) {  }
+
+  getHeroes() {
+    this.logger.log('Getting heroes ...');
+    return HEROES;
+  }
+ }
+..
