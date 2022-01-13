@@ -20,6 +20,8 @@ Indices and tables
 * :ref:`configuration`
 * :ref:`concepts`
 * :ref:`application-an`
+* :ref:`composant`
+* :ref:`directives`
 
 
 
