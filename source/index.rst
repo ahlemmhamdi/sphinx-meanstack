@@ -24,7 +24,8 @@ Indices and tables
 * :ref:`directives`
 * :ref:`formes`
 
-
+* :ref:`ex-introduction`
+* :ref:`ex-configuration`
 
 * :ref:`introduction`
 * :ref:`concepts`
