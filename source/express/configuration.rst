@@ -185,3 +185,105 @@ le chemin d'accès depuis et le nom du répertoire :
  app.listen(3000, () => console.log('Example app is listening on port 3000.'));
 ..
 Maintenant, redémarrez votre serveur et accédez à localhost:3000/public. Une liste de tous vos fichiers vous sera présentée !
+
+Ajouter le moteur de templating Handlebars et servir des fichiers HTML
+-----------------------------------------------------------------------
+Un moteur de templating permet de modifier dynamiquement le contenu de pages HTML du côté serveur.
+Commencez par installer Handlebars avec npm dans le répertoire de votre projet :
+.. code-block::
+
+npm install express-handlebars
+..
+
+- Créez ensuite un nouveau dossier à la racine du répertoire de votre projet et nommez-le views” À l'intérieur de celui-ci, 
+- créez un nouveau fichier appelé main.handlebars et deux sous-dossiers : layouts et partials.
+- Les layouts forment la structure générale de la page ainsi que ses métadonnées. 
+- Les partials sont des éléments qui peuvent être réutilisés sur plusieurs pages (par exemple, un menu). 
+- Enfin, créez un nouveau fichier appelé index.handlebars dans le sous-dossier layouts.
+
+Remplissez le fichier “index.handlebars” avec un code HTML basique tel que : 
+.. code-block::
+
+ <!DOCTYPE html>
+ <html lang="fr">
+ <head>
+   <meta charset="utf-8" />
+   <title>Mon application avec NodeJS, ExpressJS et Handlebars</title>
+   <link rel="stylesheet" type="text/css" href="./style.css" />
+ </head>
+ <body>
+   {{{body}}}
+ </body>
+ </html>
+..
+Notez que ce code contient une balise {{{body}}}. C’est ici que sera inséré dynamiquement le contenu de la page par handlebars.
+
+Retournons au fichier index.js 
+.. code-block::
+
+ const handlebars = require('express-handlebars')
+ app.set('view engine', 'handlebars')
+..
+Indiquez ensuite où se situe le répertoire contenant les layouts de votre application avec engine() :
+.. code-block::
+
+ app.engine('handlebars', handlebars({
+    layoutsDir: __dirname + '/views/layouts',
+ }))
+..
+Modifiez votre appel à la fonction get() pour servir le layout correspondant à la page demandée : 
+
+.. code-block::
+
+ app.get('/', function (req, res) {
+   res.render('main', {layout : 'index'})
+ })
+..
+dans main.handlebars
+.. code-block::
+
+ <h1>Contenu de Main</h1>
+ <ul>
+   <li>Element 1</li>
+   <li>Element 2</li>
+   <li>Element 3</li>
+   <li>Element 4</li>
+ </ul>
+..
+Enfin, permettons à l'application de charger un fichier css statique public avec :
+.. code-block::
+
+ h1{
+   color:red
+ }
+
+ li{
+   color:darkred
+ }
+..
+dans index.js
+.. code-block::
+
+ const express = require('express')
+ const app = express()
+
+ const handlebars = require('express-handlebars')
+
+ app.set('view engine', 'handlebars')
+ app.engine('handlebars', handlebars({
+    layoutsDir: __dirname + '/views/layouts',
+ }))
+
+ app.get('/', function (req, res) {
+    res.render('main', {layout : 'index'})
+ })
+
+ app.use(express.static('public'))
+
+ app.listen(3000, function () {
+    console.log('Votre app est disponible sur localhost:3000 !')
+ })
+
+..
+
+
