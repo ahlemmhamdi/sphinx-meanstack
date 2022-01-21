@@ -36,7 +36,7 @@ Sur l'élément que vous souhaitez styliser, ajoutez -le et définissez-le égal
     <!-- toggle the "special" class on/off with a property -->
    <div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
 ..
-Utilisation NgClassavec une méthode
+Utilisation NgClass avec une méthode
 -----------------------------------
 Pour l'utiliser NgClassavec une méthode, ajoutez la méthode à la classe de composant.
 
@@ -53,7 +53,7 @@ Pour l'utiliser NgClassavec une méthode, ajoutez la méthode à la classe de co
   };
   }
 ..
-Dans le modèle, ajoutez la ngClassliaison de propriété à currentClassespour définir les classes de l'élément :
+Dans le modèle, ajoutez la ngClass liaison de propriété à currentClasses pour définir les classes de l'élément :
 .. code-block::
 
     <div [ngClass]="currentClasses">This div is initially saveable, unchanged, and special.</div>

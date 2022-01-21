@@ -42,3 +42,12 @@ _______________
 - Septembre 2015: StrongLoop a été acquis par IBM
 - Janvier 2016, IBM a annoncé qu'il placerait Express.js sous la direction de l'incubateur Node.js Foundation.
 
+**principales fonctionnalités du framework Express**
+_____________________________________________________
+
+Voyons quelques-unes des principales fonctionnalités du framework Express :
+
+- Il peut être utilisé pour concevoir des applications Web monopage, multipage et hybrides.
+- Il permet de configurer des middlewares pour répondre aux requêtes HTTP.
+- Il définit une table de routage qui est utilisée pour effectuer différentes actions basées sur la méthode HTTP et l'URL.
+- Il permet de restituer dynamiquement des pages HTML en passant des arguments aux modèles.

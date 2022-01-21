@@ -26,6 +26,8 @@ Indices and tables
 
 * :ref:`ex-introduction`
 * :ref:`ex-configuration`
+* :ref:`structure`
+* :ref:`methodes`
 
 * :ref:`introduction`
 * :ref:`concepts`

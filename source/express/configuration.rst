@@ -186,8 +186,10 @@ le chemin d'accès depuis et le nom du répertoire :
 ..
 Maintenant, redémarrez votre serveur et accédez à localhost:3000/public. Une liste de tous vos fichiers vous sera présentée !
 
+
 Ajouter le moteur de templating Handlebars et servir des fichiers HTML
 -----------------------------------------------------------------------
+
 Un moteur de templating permet de modifier dynamiquement le contenu de pages HTML du côté serveur.
 Commencez par installer Handlebars avec npm dans le répertoire de votre projet :
 .. code-block::
@@ -285,5 +287,55 @@ dans index.js
  })
 
 ..
+
+Générateur d'applications Express
+---------------------------------
+
+Utilisez l'outil de générateur d'applications, express, pour créer rapidement un squelette d'application.
+
+Installez express à l'aide de la commande suivante :
+
+.. code-block::
+
+  npm install express-generator -g
+..
+Affichez les options de commande à l'aide de l'option -h :
+
+.. code-block::
+
+  express -h
+..
+
+Par exemple, ce code crée une application Express nomée myapp. L'application sera crée dans le dossier myapp, 
+lui meme placé dans le repertoir de travail courant. Le moteur de vue sera configuré avec Pug:
+
+.. code-block::
+
+  express --view=pug myapp
+..
+
+Ensuite, installez les dépendances :
+
+.. code-block::
+
+  cd myapp
+..
+.. code-block::
+
+  npm install
+..
+Sous MacOS ou Linux, exécutez l'application à l'aide de la commande suivante :
+
+.. code-block::
+
+  DEBUG=myapp:* npm start
+..
+Sous Windows, utilisez la commande suivante :
+
+.. code-block::
+
+  set DEBUG=myapp:* & npm start
+..
+Ensuite, chargez 'http://hôte_local:3000/'' dans votre navigateur pour accéder à l'application.
 
 
